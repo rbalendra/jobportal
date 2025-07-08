@@ -20,10 +20,14 @@ public class LoginController {
 
     @PostMapping("/login")
     public Map<String, String> login(Principal principal) {
-        String username = principal.getName(); // fetched from spring security context
-        // Generate JWT token using the username
+        // Step 1: Get Authenticated user from Spring Security Context
+        String username = principal.getName();
+
+
+        // Step 2: Generate JWT token using the username
         String token = jwtUtil.generateToken(username);
-        //Return as JSON response
+        
+        // Step 3: Return token as JSON response
         Map<String, String> response = new HashMap<>();
         response.put("token", token);
         return response;
